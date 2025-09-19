@@ -56,11 +56,15 @@
 # name = "Ayush"
 # print(f"|{name:<10}|")  # Left align
 # print(f"|{name:^10}|")  # Center align
-# print(f"|{name:>10}|")  # Right align
+# print(f"|{name:>10}|")  # Right align            
+# # print(f"{num:*<3}")   # 7**     print(f"{num:*>3}")   # **7         print(f"{num:*^3}")   # *7*
 
-# # 6. Formatting with leading zeros
+
+# # 6. Formatting with leading zeros.      {variable:0Nd}   0 → pad with zero   N → total width    d → (optional) says it’s an integer (decimal)
 # num = 7
 # print(f"Padded number: {num:03}")  # Output: 007
+# print(f"{num:3}")    #   7   (space padding by default, width 3)
+
 
 # # 7. Embedding function calls
 # def greet():
@@ -338,7 +342,7 @@
 
 
 # email = input("Enter your email: ")
-# username = email[:email.index("@")]
+# username = email[:email.index("@")]    see diff bet .find and .index    Both Returns the lowest index of the substring if found but .index Raises ValueError if substring not found.     .find() works only for strings, not lists
 # domain = email[email.index("@") + 1:]
 # print(f"Your username is {username} and domain is {domain}")
 
@@ -564,9 +568,9 @@
 # numbers.append(6)                              # Add 6 at the end
 # numbers.insert(2, 100)                         # Insert 100 at index 2
 # numbers.remove(3)                              # Remove the first occurrence of 3
-# popped = numbers.pop()                         # Remove and return the last element
+# popped = numbers.pop()                         # Remove and return the last element.     # Remove by index first = fruits.pop(0)
 # print("Popped element:", popped)               # Print popped element
-# numbers.sort()                                 # Sort the list in ascending order
+# numbers.sort()                                 # Sort the list in ascending order.     numbers.sort(reverse=True)-> descending order
 # numbers.reverse()                              # Reverse the list
 # print("List after sort and reverse:", numbers) # Output final list
 
@@ -583,7 +587,7 @@
 
 # # With index
 # print("Looping with index:")
-# for i, val in enumerate(numbers):              # Get both index and value
+# for i, val in enumerate(numbers):              # Get both index and value. enumerate() takes a sequence and returns pairs (index, value)
 #     print(f"Index {i}: {val}")
 
 # # ✅ List Comprehension
@@ -627,7 +631,7 @@
 # print(fruits)    
 # fruits.remove('pineapple')
 # print(fruits)    
-# fruits.pop()
+# fruits.pop()     # removes a random element
 # print(fruits)    
 
 
@@ -833,7 +837,7 @@
 # print(capitals.items())
 # print(capitals.get("USA"))
 # print(capitals["USA"])
-# print(capitals.get("Japan"))
+# print(capitals.get("Japan"))     # if we write capitals["Japan"], then error as its not there
 
 # # if capitals.get("Russia"):
 # #    print("That capital exists")
@@ -849,7 +853,7 @@
 # # capitals.pop("China")
 # # print(capitals)
 
-# # print(capitals.popitem())
+# # print(capitals.popitem())    # removes the last inserted key-value pair as a tuple (key, value)
 # # print(capitals)
 # # capitals.popitem()
 # # print(capitals)
@@ -868,8 +872,8 @@
 # for value in capitals.values():
 #     print(value)
 
-# items = capitals.items()
-# for key, value in capitals.items():
+# items1 = capitals.items()
+# for key, value in items1:
 #    print(f"{key}: {value}")
 
 
@@ -1074,39 +1078,96 @@
 
 
 
+# # Encryption Decryption
+
+# import random
+# import string
+
+# chars = " " + string.punctuation + string.digits + string.ascii_letters     # string.whitespace
+# # print(chars)
+# # print(repr(chars))
+# chars = list(chars)
+# key = chars.copy()
+# print(chars)
+# print(key)
+
+# random.shuffle(key)
+
+# print(key)
+
+# # ENCRYPT
+# plain_text = input("Enter a message to encrypt: ")
+# cipher_text = ""
+
+# for letter in plain_text:
+#     index = chars.index(letter)
+#     cipher_text += key[index]
+
+# print(f"original message : {plain_text}")
+# print(f"encrypted message: {cipher_text}")
+
+# # DECRYPT
+# cipher_text = input("Enter a message to encrypt: ")
+# plain_text = ""
+
+# for letter in cipher_text:
+#     index = key.index(letter)
+#     plain_text += chars[index]
+
+# print(f"encrypted message: {cipher_text}")
+# print(f"original message : {plain_text}")
+
+
+
+
+
+
+
+
+
 
 import random
-import string
 
-chars = " " + string.punctuation + string.digits + string.ascii_letters     # string.whitespace
-# print(chars)
-chars = list(chars)
-key = chars.copy()
-print(chars)
-print(key)
+# 1. Random float between 0 and 1
+print("random():", random.random())
 
-random.shuffle(key)
+# 2. Random float between a and b
+print("uniform(5, 10):", random.uniform(5, 10))
 
-print(key)
+# 3. Random integer between a and b (inclusive)
+print("randint(1, 10):", random.randint(1, 10))
 
-# ENCRYPT
-plain_text = input("Enter a message to encrypt: ")
-cipher_text = ""
+# 4. Random integer with step
+print("randrange(0, 20, 3):", random.randrange(0, 20, 3))
 
-for letter in plain_text:
-    index = chars.index(letter)
-    cipher_text += key[index]
+# 5. Choose a random element from a sequence
+fruits = ["apple", "banana", "mango", "cherry"]
+print("choice:", random.choice(fruits))
 
-print(f"original message : {plain_text}")
-print(f"encrypted message: {cipher_text}")
+# 6. Choose k random elements (with replacement possible if needed)
+print("choices:", random.choices(fruits, k=3))
 
-# DECRYPT
-cipher_text = input("Enter a message to encrypt: ")
-plain_text = ""
+# 7. Choose k random elements (without replacement)
+print("sample:", random.sample(fruits, 2))
 
-for letter in cipher_text:
-    index = key.index(letter)
-    plain_text += chars[index]
+# 8. Shuffle a list
+nums = [1, 2, 3, 4, 5]
+random.shuffle(nums)
+print("shuffle:", nums)
 
-print(f"encrypted message: {cipher_text}")
-print(f"original message : {plain_text}")
+# 9. Random number with Gaussian distribution (mean=0, std=1)
+print("gauss(0,1):", random.gauss(0, 1))
+
+# 10. Random float with triangular distribution
+print("triangular(10, 20, 15):", random.triangular(10, 20, 15))
+
+# 11. Set seed for reproducibility
+random.seed(42)
+print("With seed, randint(1,100):", random.randint(1, 100))
+
+
+fruits = ["apple", "banana", "mango", "orange"]
+print(random.choices(fruits, k=3))  
+# e.g. ['apple', 'mango', 'mango']  (with replacement)
+print(random.choices(fruits, weights=[10, 1, 1, 1], k=3))  
+# 'apple' has much higher chance

@@ -40,7 +40,125 @@
 
 
 
-# Coudnt understand properly static and class methods
+
+
+
+
+
+
+
+# Example Python class demonstrating Instance, Class, and Static methods
+
+# class Dog:
+#     # -------------------------
+#     # Class Attribute
+#     # -------------------------
+#     species = "Canine"   # Shared across all instances of Dog
+
+#     # -------------------------
+#     # Constructor / Instance Attributes
+#     # -------------------------
+#     def __init__(self, name, age):
+#         self.name = name  # Unique to each instance
+#         self.age = age    # Unique to each instance
+
+#     # -------------------------
+#     # Instance Method
+#     # -------------------------
+#     # Can access instance attributes (self.name, self.age)
+#     # Can also access class attributes via self.species
+#     def describe(self):
+#         return f"{self.name} is {self.age} years old and belongs to {self.species} species."
+
+#     # Another instance method that modifies an instance attribute
+#     def birthday(self):
+#         self.age += 1
+#         print(f"Happy Birthday {self.name}! Age is now {self.age}")
+
+#     # -------------------------
+#     # New Instance Method (with extra arguments)
+#     # -------------------------
+#     # Demonstrates:
+#     # - Instance methods can take additional arguments besides 'self'
+#     # - Can access/modify class attributes (self.species)
+#     # - Cannot modify another instance's attributes unless passed as an object
+#     def rename_and_change_species(self, new_name, new_species):
+#         print(f"Changing {self.name}'s name to {new_name} and species to {new_species}")
+#         self.name = new_name              # Modifies instance attribute of THIS object
+#         self.species = new_species        # Modifies class attribute for all instances.  
+#         # Note: Cannot directly modify attributes of another instance here
+#         # For example, dog2.name = "Max" would require passing dog2 as argument
+
+#         # self.__class__.species = new_species  # Updates class attribute for ALL dogs.   or directly Dog.species = new_species
+#         # Rule of Thumb:
+#         # self.attr = value → affects only that object.
+#         # ClassName.attr = value or self.__class__.attr = value → affects all objects sharing the class attribute.
+#         # 3 ways to update class attributes for all instances
+# #         | Method                    | Description                                     | Example Code                             |
+# # | ------------------------- | ----------------------------------------------- | ---------------------------------------- |
+# # | **Direct via Class Name** | Changes class attribute for all instances       | `Dog.species = "Super Canine"`           |
+# # | **Class Method**          | Encapsulated way to update class attribute      | `Dog.set_species("Ultra Canine")`        |
+# # | **Instance Method**       | From an object, updates class attribute for all | `dog1.__class__.species = "Mega Canine"` |
+
+
+#     # -------------------------
+#     # Class Method
+#     # -------------------------
+#     # Decorator: @classmethod
+#     # Takes cls as the first parameter (refers to the class itself)
+#     # Can access/modify class attributes but NOT instance attributes
+#     @classmethod
+#     def get_species(cls):
+#         return f"All dogs belong to the {cls.species} species."
+
+#     @classmethod
+#     def set_species(cls, new_species):
+#         cls.species = new_species
+
+#     # -------------------------
+#     # Static Method
+#     # -------------------------
+#     # Decorator: @staticmethod
+#     # Does NOT take self or cls
+#     # Cannot access instance or class attributes
+#     # Just a utility function logically related to the class
+#     @staticmethod
+#     def bark():
+#         return "Woof! Woof!"
+
+# # -------------------------
+# # USAGE / DEMO
+# # -------------------------
+# # Creating instances of Dog
+# dog1 = Dog("Scooby", 5)
+# dog2 = Dog("Buddy", 3)
+
+# # Instance methods
+# print(dog1.describe())          # Accesses self attributes and class attribute
+# dog2.birthday()                 # Modifies instance attribute
+
+# print("---")
+
+# # Using the new instance method with extra arguments
+# dog1.rename_and_change_species("Rex", "Super Canine")
+# print(dog1.describe())          # Name and species updated.  # Name: Rex, Species: Super Canine (instance attribute)
+# print(dog2.describe())          # Name: Buddy, Species: Canine (still the class attribute)
+
+# print("---")
+
+# # Class methods
+# print(Dog.get_species())        # Access class attribute via class
+# Dog.set_species("Ultra Canine") # Change class attribute for all instances
+# print(dog1.describe())          # Updated species reflected in instance
+# print(dog2.describe())          # Updated species reflected here too
+
+# print("---")
+
+# # Static methods
+# print(Dog.bark())               # Call via class
+# print(dog1.bark())              # Call via instance
+
+
 
 
 
@@ -108,7 +226,7 @@
 # #                        Gives you a getter, setter, and deleter method
 
 # class Rectangle:
-#     def __init__(self, width, height):
+#     def __init__(self, width, height):  
 #         self._width = width
 #         self._height = height
 
@@ -173,6 +291,35 @@
 #     print(f"Here is your {flavor} ice cream 🍨")
 
 # get_ice_cream("vanilla")
+
+
+
+
+
+
+# | Term      | Description                                                    |
+# | --------- | -------------------------------------------------------------- |
+# | Decorator | Function that wraps another function to extend/modify behavior |
+# | Wrapper   | Inner function inside decorator that adds functionality        |
+# | @ Syntax  | Syntactic sugar for applying decorator (`@decorator`)          |
+# | Use cases | Logging, timing, authentication, caching                       |
+
+
+# def decorator(func):
+#     def wrapper():
+#         print("Before the function runs")
+#         func()
+#         print("After the function runs")
+#     return wrapper
+
+# def say_hello():
+#     print("Hello!")
+
+# # Decorating manually
+# say_hello = decorator(say_hello)
+# say_hello()
+
+
 
 
 
@@ -385,6 +532,19 @@
 #     print("Do some cleanup here")
 
 
+# There is else block also. Runs only if no exception occurs
+# finally block. Always runs (cleanup code, closing files, etc.)
+
+# try → Code that may fail
+# except → Handle error
+# else → Runs if no error
+# finally → Always runs
+# raise → Trigger your own error
+
+# raise without handling → program stops (crashes).
+# raise inside try-except → error is caught, program continues.
+
+
 
 
 
@@ -414,55 +574,72 @@
 # # Python writing files (.txt, .json, .csv)
 
 # # --------- .txt ---------
-# txt_data = "I like pizza!"
+# txt_data = "I like pizza!!!"
 
 # file_path = "output.txt"
 
 # try:
-#    with open(file_path, 'w') as file:
+#    with open(file_path, 'w') as file:    # 'w' mode = write (creates or overwrites file). Also see 'x' mode
 #       file.write(txt_data)
 #       print(f".txt file '{file_path}' has been created successfully")
-# except FileExistsError:
+# except FileExistsError:     # except FileExistsError will never run in this case bcz FileExistsError happens only with 'x' mode (exclusive creation). In 'w' mode, Python will overwrite the file if it already exists (no error raised).
 #    print("That file already exists")
 
-# # # --------- .json ---------
+# # --------- .json ---------
 
-# # import json
+# import json
 
-# # employee = {
-# #    "name": "Spongebob",
-# #    "age": 30,
-# #    "job": "Cook"
-# # }
+# employee = {
+#    "name": "Spongebob",
+#    "age": 30,
+#    "job": "Cook"
+# }
 
-# # file_path = "output.json"
+# file_path = "output.json"
 
-# # try:
-# #     with open(file_path, 'w') as file:
-# #         json.dump(employee, file, indent=4)
+# try:
+#     with open(file_path, 'w') as file:
+#         json.dump(employee, file, indent=4)  # Converts the Python dictionary → JSON format. Writes it into the file. indent=4 → makes it pretty with indentation.
 
-# #     print(f"JSON file '{file_path}' has been created successfully")
-# # except FileExistsError:
-# #     print("That file already exists!")
+#     print(f"JSON file '{file_path}' has been created successfully")
+# except FileExistsError:
+#     print("That file already exists!")
 
 # # # --------- .csv---------
-# # import csv
+# import csv    # comma separated values
 
-# # employees = [["Name", "Age", "Job"],
-# #              ["Spongebob", 30, "Cook"],
-# #              ["Patrick", 37, "Unemployed"],
-# #              ["Sandy", 27, "Scientist"]]
+# employees = [["Name", "Age", "Job"],    # header + rows
+#              ["Spongebob", 30, "Cook"],
+#              ["Patrick", 37, "Unemployed"],
+#              ["Sandy", 27, "Scientist"]]
 
-# # file_path = "output.csv"
+# file_path = "output.csv"
 
-# # try:
-# #     with open(file_path, "w", newline="") as file:
-# #         writer = csv.writer(file)
-# #         for row in employees:
-# #             writer.writerow(row)
-# #         print(f"csv file '{file_path}' was created")
-# # except FileExistsError:
-# #     print("That file already exists!")
+# try:
+#     with open(file_path, "w", newline="") as file:
+#         writer = csv.writer(file)
+#         for row in employees:
+#             writer.writerow(row)
+#         print(f"csv file '{file_path}' was created")
+
+#     # Alternative (shorter way). Instead of writing rows one by one, you can write all at once:
+#     # with open(file_path, "w", newline="") as file:
+#     #     writer = csv.writer(file)
+#     #     writer.writerows(employees)   # writes entire list of lists
+
+# except FileExistsError:
+#     print("That file already exists!")
+
+
+
+
+# | Mode  | Meaning                | Creates file if not exists? | Overwrites existing file?  | Appends if file exists? | Error if file exists?                            |
+# | ----- | ---------------------- | --------------------------- | -------------------------- | ----------------------- | ------------------------------------------------ |
+# | `'r'` | **Read**               | ❌ No                        | ❌ No                       | ❌ No                    | ✅ Yes (`FileNotFoundError` if file missing)      |
+# | `'w'` | **Write**              | ✅ Yes                       | ✅ Yes (erases old content) | ❌ No                    | ❌ No                                             |
+# | `'a'` | **Append**             | ✅ Yes                       | ❌ No                       | ✅ Yes (adds to end)     | ❌ No                                             |
+# | `'x'` | **Exclusive creation** | ✅ Yes                       | ❌ No                       | ❌ No                    | ✅ Yes (`FileExistsError` if file already exists) |
+
 
 
 
@@ -477,8 +654,8 @@
 # file_path = "output.txt"
 
 # try:
-#   with open(file_path, 'r') as file:
-#      content = file.read()
+#   with open(file_path, 'r') as file:    # with → automatically closes the file when done.
+#      content = file.read()    # read entire file as a string
 #      print(content)
 # except FileNotFoundError:
 #   print("That file was not found")
@@ -486,33 +663,35 @@
 #   print("You do not have permission to read that file")
 
 # # # ---------- .json ----------
-# # import json
+# import json
 
 # # file_path = "C:/Users/HP/Desktop/input.json"
+# file_path = "output.json"
 
-# # try:
-# #   with open(file_path, 'r') as file:
-# #       content = json.load(file)
-# #       print(content )
-# # except FileNotFoundError:
-# #   print("That file was not found")
-# # except PermissionError:
-# #   print("You do not have permission to read that file")
+# try:
+#   with open(file_path, 'r') as file:
+#       content = json.load(file)    # parse JSON → Python dict/list
+#       print(content )
+# except FileNotFoundError:
+#   print("That file was not found")
+# except PermissionError:
+#   print("You do not have permission to read that file")
 
 # # # ---------- .csv ----------
-# # import csv
+# import csv
 
 # # file_path = "C:/Users/HP/Desktop/input.csv"
+# file_path = "output.csv"
 
-# # try:
-# #   with open(file_path, 'r') as file:
-# #       content = csv.reader(file)
-# #       for line in content:
-# #           print(line)
-# # except FileNotFoundError:
-# #   print("That file was not found")
-# # except PermissionError:
-# #   print("You do not have permission to read that file")
+# try:
+#   with open(file_path, 'r') as file:
+#       content = csv.reader(file)   # create a CSV reader object
+#       for line in content:   # iterate over rows
+#           print(line)         # each row is a list
+# except FileNotFoundError:
+#   print("That file was not found")
+# except PermissionError:
+#   print("You do not have permission to read that file")
 
 
 
@@ -524,7 +703,7 @@
 
 # import time
 
-# start_time = time.perf_counter()
+# start_time = time.perf_counter()   # It gives the most precise clock available in Python for measuring short durations. Returns the current value of a performance counter in fractional seconds (float). time.perf_counter() is monotonic: it always moves forward, never backward.
 
 # # YOUR CODE GOES HERE
 # for _ in range(100000):
@@ -538,6 +717,13 @@
 
 
 
+# Other Timing Functions
+# time.time() → wall clock time (affected by system changes).
+# time.perf_counter() → best for benchmarking.
+# time.process_time() → measures CPU time (ignores sleep, waiting).
+
+
+
 
 
 
@@ -546,17 +732,17 @@
 # # DATES & TIMES
 # import datetime
 
-# date = datetime.date(2025, 1, 2)
+# date = datetime.date(2025, 1, 2)   # year, month, date. If month or date is out of bounds then error
 # today = datetime.date.today()
 # print(date)
 # print(today)
 
-# time = datetime.time(12, 30, 0)
+# time = datetime.time(12, 30, 0)   # makes a time object: 12:30:00.
 # now = datetime.datetime.now()
 # print(time)
 # print(now)
 
-# now = now.strftime("%H:%M:%S %m-%d-%Y")
+# now = now.strftime("%H:%M:%S %m-%d-%Y")    # strftime() converts a datetime object → formatted string.
 # print(now)
 
 # target_datetime = datetime.datetime(2030, 1, 2, 12, 30, 1)
@@ -648,41 +834,262 @@
 # chore2.join()
 # chore3.join()
 
+# .join: Makes the main thread wait until each thread is done. Without .join(), the main program continues immediately → so "All chores are complete!" could print before chores finish. If u want to skip .join, u just have to write .start() as written above
+
 # print("All chores are complete!")   # If we dont write join above, then this will come in output at first only.
 
 
 
 
 
+# Concurrency = broader concept (managing multiple tasks).
+# Multithreading = one technique to implement concurrency.
+# Parallelism = actually running things simultaneously (possible with multiple cores).
+
+# All multithreading is concurrency.
+# Not all concurrency is multithreading (it could be multiprocessing or async I/O).
 
 
 
-# https://pokeapi.co/
-#How to connect to an API using Python
 
-import requests
 
-base_url = "https://pokeapi.co/api/v2/"
 
-def get_pokemon_info(name):
-    url = f"{base_url}/pokemon/{name}"
-    response = requests.get(url)
-    # print(response)
 
-    if response.status_code == 200:
-        pokemon_data = response.json()
-        return pokemon_data
-    else:
-        print(f"Failed to retrieve data {response.status_code}")
+# # https://pokeapi.co/
+# #How to connect to an API using Python
 
-pokemon_name = "pikachu"
-pokemon_info = get_pokemon_info(pokemon_name)
+# import requests
 
-if pokemon_info:
-    print(f"Name: {pokemon_info["name"].capitalize()}")
-    print(f"Id: {pokemon_info["id"]}")
-    print(f"Height: {pokemon_info["height"]}")
-    print(f"Weight: {pokemon_info["weight"]}")
+# base_url = "https://pokeapi.co/api/v2/"
+
+# def get_pokemon_info(name):
+#     url = f"{base_url}/pokemon/{name}"
+#     response = requests.get(url)
+#     # print(response)
+
+#     if response.status_code == 200:
+#         pokemon_data = response.json()
+#         return pokemon_data
+#     else:
+#         print(f"Failed to retrieve data {response.status_code}")
+
+# pokemon_name = "pikachu"
+# pokemon_info = get_pokemon_info(pokemon_name)
+
+# if pokemon_info:
+#     print(f"Name: {pokemon_info["name"].capitalize()}")
+#     print(f"Id: {pokemon_info["id"]}")
+#     print(f"Height: {pokemon_info["height"]}")
+#     print(f"Weight: {pokemon_info["weight"]}")
+
+
+
+
+
+
+
+
+
+# # Generators
+# # A generator is a special kind of iterable that produces items one at a time instead of storing them all in memory.
+# # Useful for memory efficiency and lazy evaluation.
+# # Generators use the yield keyword instead of return.
+
+
+# # Basic Generator Function
+# def my_generator():
+#     yield 1     
+#     yield 2
+#     yield 3
+
+# gen = my_generator()
+
+# print(next(gen))  # 1
+# print(next(gen))  # 2
+# print(next(gen))  # 3
+# # print(next(gen))  # StopIteration error if no more items
+
+# # yield pauses the function and returns a value.
+# # The function resumes where it left off on the next next() call.
+
+
+# # Using a Generator in a Loop
+# def squares(n):
+#     for i in range(1, n+1):
+#         yield i * i
+
+# for val in squares(5):
+#     print(val)
+
+# # Values are generated on the fly, not stored in memory.
+
+
+
+# # Generator Expression (like list comprehension)
+# gen_exp = (x*x for x in range(5))
+# for val in gen_exp:
+#     print(val)
+# # Use parentheses () instead of brackets [].
+# # More memory-efficient than creating a list.
+
+# # Memory efficiency of generators vs lists.
+# import sys
+# big_list = list(range(1000000))
+# big_gen = (x for x in range(1000000))
+# print("Memory used by list:", sys.getsizeof(big_list))
+# print("Memory used by generator:", sys.getsizeof(big_gen))
+
+
+# # Why Use Generators?
+# # Handle large data efficiently.
+# # Useful for streaming data or reading large files line by line.
+# # Can pause and resume computation.
+
+
+
+
+
+
+
+
+
+
+# # split method
+
+# # ===============================
+# # PYTHON STRING SPLIT() DEMO
+# # ===============================
+
+# # -------------------------------
+# # 1️⃣ Basic split (default: whitespace)
+# # -------------------------------
+# text = "I love Python"
+# words = text.split()  # Splits at spaces by default
+# print("Split by space:", words)
+# # Output: ['I', 'love', 'Python']
+
+# # -------------------------------
+# # 2️⃣ Split with a custom separator
+# # -------------------------------
+# csv_text = "apple,banana,cherry"
+# fruits = csv_text.split(",")  # Splits at commas
+# print("Split by comma:", fruits)
+# # Output: ['apple', 'banana', 'cherry']
+
+# # -------------------------------
+# # 3️⃣ Limiting number of splits
+# # -------------------------------
+# sentence = "one two three four"
+# limited_split = sentence.split(" ", 2)  # Max 2 splits
+# print("Limited split (max 2 splits):", limited_split)
+# # Output: ['one', 'two', 'three four']
+
+# # -------------------------------
+# # 4️⃣ Splitting by other characters
+# # -------------------------------
+# data = "2025-09-08"
+# date_parts = data.split("-")  # Split by dash
+# print("Split by dash:", date_parts)
+# # Output: ['2025', '09', '08']
+
+# # -------------------------------
+# # 5️⃣ Using split on empty string
+# # -------------------------------
+# empty_text = ""
+# result = empty_text.split()
+# print("Split on empty string:", result)
+# # Output: []
+
+# # -------------------------------
+# # 6️⃣ Using rsplit() (split from right)
+# # -------------------------------
+# sentence2 = "a,b,c,d,e"
+# right_split = sentence2.rsplit(",", 2)  # Split at most 2 times from the right
+# print("Right split with max 2 splits:", right_split)
+# # Output: ['a,b,c', 'd', 'e']
+
+
+
+
+
+
+
+
+
+
+
+# enumerate
+
+# ===============================
+# PYTHON ENUMERATE() DEMO
+# ===============================
+
+# -------------------------------
+# 1️⃣ Basic enumerate with a list
+# -------------------------------
+fruits = ["apple", "banana", "cherry"]
+
+print("Basic enumerate:")
+for index, fruit in enumerate(fruits):
+    print(index, fruit)
+# Output:
+# 0 apple
+# 1 banana
+# 2 cherry
+
+print("\n------------------------------\n")
+
+# -------------------------------
+# 2️⃣ Starting counter at a custom number
+# -------------------------------
+print("Custom start index:")
+for index, fruit in enumerate(fruits, start=1):
+    print(index, fruit)
+# Output:
+# 1 apple
+# 2 banana
+# 3 cherry
+
+print("\n------------------------------\n")
+
+# -------------------------------
+# 3️⃣ Using enumerate with a string
+# -------------------------------
+letters = "Python"
+print("Enumerate with a string:")
+for index, letter in enumerate(letters):
+    print(index, letter)
+# Output:
+# 0 P
+# 1 y
+# 2 t
+# 3 h
+# 4 o
+# 5 n
+
+print("\n------------------------------\n")
+
+# -------------------------------
+# 4️⃣ Convert enumerate object to a list
+# -------------------------------
+enum_list = list(enumerate(fruits))
+print("Enumerate converted to list:", enum_list)
+# Output: [(0, 'apple'), (1, 'banana'), (2, 'cherry')]
+
+print("\n------------------------------\n")
+
+# -------------------------------
+# 5️⃣ Using enumerate in more complex loops
+# -------------------------------
+numbers = [10, 20, 30, 40]
+for idx, val in enumerate(numbers):
+    print(f"Index {idx} has value {val}")
+# Output:
+# Index 0 has value 10
+# Index 1 has value 20
+# Index 2 has value 30
+# Index 3 has value 40
+
 
 
 

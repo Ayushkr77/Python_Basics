@@ -103,6 +103,7 @@
 
 # def add(*args):   # can name it anything
 #    print(type(args))
+#    print(args)
 #    total = 0
 #    for num in args:
 #        total += num
@@ -288,7 +289,7 @@
 
 # def is_weekend(day):
 #     match day:
-#         case "Saturday" | "Sunday":     # | is the bitwise OR operator.    In Python 3.10+, you can use the | operator in match statements to match multiple values.
+#         case "Saturday" | "Sunday":     # | is the bitwise OR operator.    In Python 3.10+, you can use the | operator in match statements to match multiple values. Using or will give SyntaxError. So inside match-case, always use |. But in if-elif-else, you should use or.
 #             return True
 #         case "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday":
 #             return False
@@ -328,6 +329,11 @@
 
 # # scope resolution: where a variable is visible and accessible
 # # LEGB- local, enclosed, global, built-in
+# LEGB Rule:
+# L – Local: Inside the current function.
+# E – Enclosing: Inside outer functions (if nested).
+# G – Global: Defined at the top level of the file.
+# B – Built-in: Python’s built-in names (like len, range).
 
 # # ----- LOCAL -----
 
@@ -373,10 +379,43 @@
 
 
 
+# x = 10  # Global scope
+
+# def outer():
+#     x = 20  # Enclosing scope
+#     y=100
+    
+#     def inner():
+#         x = 30  # Local scope
+#         print(x)  # Python looks here first -> prints 30
+#         print(y)   # inner function can access outer variable-> enclosed
+    
+#     inner()
+#     print(x)  # Prints 20 (enclosing)
+    
+# outer()
+# print(x)  # Prints 10 (global)
+
+
+
+
+
+
 
 # # Couldnt understand
 
 # # if __name__ == '__main__' 
+
+# Every Python file has a special built-in variable called __name__. When a file is run directly, Python sets __name__ = "__main__". When a file is imported as a module in another file, Python sets __name__ = "module_name".
+
+# | `__name__` value | When it occurs               | Code behavior                  |
+# | ---------------- | ---------------------------- | ------------------------------ |
+# | `"__main__"`     | File is run directly         | Executes code under `if` block |
+# | `"module_name"`  | File is imported as a module | Skips code under `if` block    |
+
+# Rule of Thumb:
+# Use if __name__ == "__main__": to ensure that certain code only runs when the file is executed directly, not when imported.
+
 
 # # You can also run a script by right clicking within that script and selecting 'Run'. I forgot about that shortcut while filming this video.
 
@@ -796,23 +835,34 @@
 
 
 
+# Method Resolution Order (MRO): have to study
 
 
 
 
-# # Abstract class: A class that cannot be instantiated on its own; Meant to be subclassed.
+
+
+# # Abstract class: A class that cannot be instantiated on its own; Meant to be subclassed. It’s meant to be a blueprint for other classes.
 # # They can contain abstract methods, which are declared but have no implementation.
 # # Abstract classes benefits:
 # # 1. Prevents instantiation of the class itself
 # # 2. Requires children to use inherited abstract methods
 
-# from abc import ABC, abstractmethod
+# | Feature         | Description                                                                         |
+# | --------------- | ----------------------------------------------------------------------------------- |
+# | Abstract Class  | Blueprint class; cannot instantiate directly; defined using `ABC`.                  |
+# | Abstract Method | Method with no implementation in abstract class; must be implemented in subclasses. |
+# | Purpose         | Enforce a **contract** for subclasses to implement certain methods.                 |
+
+
+# from abc import ABC, abstractmethod    # abc = Abstract Base Classes.  Defined by inheriting from ABC (Abstract Base Class) from the abc module.
 
 # class Vehicle(ABC):
+# You cannot create Vehicle() because it has an abstract method. Serves as a template for other classes.
 
 #     @abstractmethod
-#     def go(self):
-#         pass
+#     def go(self):    # A method declared in an abstract class without implementation. Subclasses must override it to be instantiable.
+#         pass    # No implementation, must be defined in child class
 
 #     @abstractmethod
 #     def stop(self):
@@ -912,6 +962,8 @@
 # # Poly = Many
 # # Morphe = Form
 
+# Search polymorphism in detail. It showing 4 ways: Duck Typing, Method Overriding, Functions working on multiple types, Operator Overloading.
+
 # # TWO WAYS TO ACHIEVE POLYMORPHISM
 # # 1. Inheritance = An object could be treated of the same type as a parent class
 # # 2. "Duck typing" = Object must have necessary attributes/methods
@@ -923,6 +975,8 @@
 #     @abstractmethod
 #     def area(self):
 #         pass
+
+# Concrete classes: Circle, Square, Triangle. Search what are concrete classes. Not mandatory that they will inherit, it can be normal classes also
 
 # class Circle(Shape):
 #     def __init__(self, radius):
